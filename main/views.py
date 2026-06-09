@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_400, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Mahsulot
 from .forms import MahsulotForm
 
@@ -17,7 +17,7 @@ def mahsulot_create(request):
     return render(request, 'forma.html', {'form': form, 'title': "Yangi mahsulot qo'shish"})
 
 def mahsulot_update(request, pk):
-    mahsulot = get_object_or_400(Mahsulot, pk=pk)
+    mahsulot = get_object_or_404(Mahsulot, pk=pk)
     if request.method == 'POST':
         form = MahsulotForm(request.POST, instance=mahsulot)
         if form.is_valid():
@@ -28,7 +28,7 @@ def mahsulot_update(request, pk):
     return render(request, 'forma.html', {'form': form, 'title': "Mahsulotni tahrirlash"})
 
 def mahsulot_delete(request, pk):
-    mahsulot = get_object_or_400(Mahsulot, pk=pk)
+    mahsulot = get_object_or_404(Mahsulot, pk=pk)
     if request.method == 'POST':
         mahsulot.delete()
         return redirect('mahsulot_list')
